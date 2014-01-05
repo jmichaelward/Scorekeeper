@@ -1,5 +1,8 @@
-var numPlayers = 0,
-    timeout;
+// Global app variable
+var Scorekeeper = {};
+
+Scorekeeper.numPlayers = 0,
+Scorekeeper.timeout;
 
 jQuery().ready(function() {
     makePageFullHeight();
@@ -18,7 +21,7 @@ function makePageFullHeight() {
  ||-----------------*/
 function setEventListeners() {
     jQuery('#num-players-button').click(function() {
-        numPlayers = getNumPlayers();
+        Scorekeeper.numPlayers = getNumPlayers();
         createPlayerList();
     });
 
@@ -40,7 +43,7 @@ function createPlayerList() {
     playerForm.attr('action','index.php');
 
     // @todo Make this an AJAX call to create and retrieve the form from a PHP file
-    for (var i = 1; i <= numPlayers; i++) {
+    for (var i = 1; i <= Scorekeeper.numPlayers; i++) {
         var formInput = '<li><label for="player-' + i + '">Player ' + i + ' Name: </label>' +
                         '<input type="text" id="player-' + i + '" name="player-' + i + '" class="player-name"></li>';
         playerForm.append(formInput);
@@ -49,14 +52,14 @@ function createPlayerList() {
 }
 
 function activateScoreUpdater() {
-    timeout = setTimeout(function() {
+    Scorekeeper.timeout = setTimeout(function() {
         if (jQuery('#players').length > 0) {
             jQuery('.player:first').addClass('current');
         }
 
         if (jQuery('#submit-update').length > 0) {
             scoreUpdater();
-            clearTimeout(timeout);
+            clearTimeout(Scorekeeper.timeout);
         }
     },500);
 }
