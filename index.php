@@ -17,10 +17,10 @@
 
         <div id="main"><?php
 
-            if (empty($_SESSION['players'])) {
-                include('views/num-player-form.php');
-            } else {
+            if (isset($_SESSION['players'])) {
                 include('views/player-scores.php');
+            } else {
+                include('views/num-player-form.php');
             } ?>
 
         </div>
