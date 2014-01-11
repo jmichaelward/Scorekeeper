@@ -45,10 +45,11 @@ function createPlayerList() {
     // @todo Make this an AJAX call to create and retrieve the form from a PHP file
     for (var i = 1; i <= Scorekeeper.numPlayers; i++) {
         var formInput = '<li><label for="player-' + i + '">Player ' + i + ' Name: </label>' +
-                        '<input type="text" id="player-' + i + '" name="player-' + i + '" class="player-name"></li>';
+                        '<input type="text" id="player-' + i + '" name="player-name[]" class="player-name"></li>';
         playerForm.append(formInput);
     }
     playerForm.append('<li><input type="submit" id="start-game" value="Start Game"></li>');
+    return false;
 }
 
 function activateScoreUpdater() {
