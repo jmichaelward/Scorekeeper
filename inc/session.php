@@ -1,15 +1,17 @@
 <?php
 session_start();
 
-if (!empty($_REQUEST)) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_REQUEST)) {
 
-    $_SESSION['players'] = array();
+    if (!isset($_SESSION['players'])) {
+        $_SESSION['players'] = array();
 
-    foreach ($_REQUEST as $key => $value) {
-        $_SESSION['players'][] = array(
-            'position' => $key,
-            'name' => $value,
-            'score' => 0
-        );
+        foreach ($_REQUEST['player-name'] as $key => $value) {
+            $_SESSION['players'][] = array(
+                'position' => $key,
+                'name' => $value,
+                'score' => 0
+            );
+        }
     }
 }
