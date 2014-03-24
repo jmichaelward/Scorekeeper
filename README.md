@@ -1,7 +1,7 @@
 Scorekeeper
 ===========
 
-A basic web-based application to keep tracking of game scores for a set of players.
+A basic web-based application to keep track of game scores for a set of players.
 
 
 Version 0.1 release notes
