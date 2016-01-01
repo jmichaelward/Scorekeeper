@@ -1,16 +1,21 @@
 <?php
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_REQUEST)) {
+// Make sure we know the number of players first
+if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_REQUEST['num-players'])) {
+    $_SESSION['num-players'] = $_REQUEST['num-players'];
+}
 
+if (!isset($_SESSION['num-players'])) {
+    return;
+}
+
+// Add player names to the session once that form has been completed
+if ('POST' === $_SERVER['REQUEST_METHOD'] && isset($_REQUEST['player-name'])) {
     if (!isset($_SESSION['players'])) {
-        $_SESSION['players'] = array();
-
         foreach ($_REQUEST['player-name'] as $key => $value) {
             $_SESSION['players'][] = array(
-                'position' => $key,
                 'name' => $value,
-                'score' => 0
             );
         }
     }

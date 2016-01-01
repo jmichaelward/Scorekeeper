@@ -1,96 +1,174 @@
-// Global app variable
-var Scorekeeper = {};
+'use strict';
 
-Scorekeeper.numPlayers = 0,
-Scorekeeper.timeout;
+(function() {
+    var app;
 
-jQuery().ready(function() {
-    makePageFullHeight();
-    setEventListeners();
-});
-
-/*-----------------||
-|| Page formatting ||
-||-----------------*/
-function makePageFullHeight() {
-    jQuery('#page').css('minHeight',jQuery(window).innerHeight());
-}
-
-/*-----------------||
- || Event listeners ||
- ||-----------------*/
-function setEventListeners() {
-    jQuery('#num-players-button').click(function() {
-        Scorekeeper.numPlayers = getNumPlayers();
-        createPlayerList();
-    });
-
-    activateScoreUpdater();
-}
-
-/*------------------------||
-|| Scorekeeping functions ||
-||------------------------*/
-function getNumPlayers() {
-    return jQuery('#num-players').val();
-}
-
-function createPlayerList() {
-    var playerForm = jQuery('#player-form');
-
-    playerForm.find('li').remove();
-    jQuery('#instructions').html('Enter a name for each player');
-    playerForm.attr('action','index.php');
-
-    // @todo Make this an AJAX call to create and retrieve the form from a PHP file
-    for (var i = 1; i <= Scorekeeper.numPlayers; i++) {
-        var formInput = '<li><label for="player-' + i + '">Player ' + i + ' Name: </label>' +
-                        '<input type="text" id="player-' + i + '" name="player-name[]" class="player-name"></li>';
-        playerForm.append(formInput);
+    /**
+     * App constructor
+     */
+    function Scorekeeper() {
+        this.numPlayers = 0;
+        this.timeout = null;
     }
-    playerForm.append('<li><input type="submit" id="start-game" value="Start Game"></li>');
-    return false;
-}
 
-function activateScoreUpdater() {
-    Scorekeeper.timeout = setTimeout(function() {
-        if (jQuery('#players').length > 0) {
-            jQuery('.player:first').addClass('current');
+    /*------------------||
+     || Page formatting ||
+     ||-----------------*/
+    /**
+     * Make the page container fill the entirety of the window
+     */
+    Scorekeeper.prototype.makePageFullHeight = function() {
+        var page = document.getElementById('page');
+
+        page.style.minHeight = window.innerHeight + 'px';
+    };
+
+    /*------------------||
+     || Event listeners ||
+     ||-----------------*/
+    /**
+     * Add app event listeners
+     */
+    Scorekeeper.prototype.addEventListeners = function() {
+        //var numPlayersButton = document.getElementById('num-players-button');
+        //
+        //if (!numPlayersButton) {
+        //    numPlayersButton.addEventListener('click', this.createPlayerList.bind(this), false);
+        //}
+
+        this.createPlayerList();
+        this.initScoreUpdater();
+    };
+
+    /*-------------------------||
+     || Scorekeeping functions ||
+     ||------------------------*/
+    /**
+     * Get the submitted value for the number of players to track
+     */
+    Scorekeeper.prototype.getNumPlayers = function() {
+        var numPlayers = document.getElementById('num-players');
+
+        return numPlayers.value;
+    };
+
+    /**
+     * Create form inputs to enter names for the desired number of players
+     */
+    Scorekeeper.prototype.createPlayerList = function() {
+        var instructions = document.getElementById('instructions'),
+            playersList = document.getElementById('players-list'),
+            formInput;
+
+        if (!playersList || !instructions) {
+            return;
         }
 
-        if (jQuery('#submit-update').length > 0) {
-            scoreUpdater();
-            clearTimeout(Scorekeeper.timeout);
+        this.numPlayers = this.getNumPlayers();
+
+        instructions.innerHTML = 'Please enter a name for each player.';
+
+        for (var i = 1; i <= this.numPlayers; i++) {
+            formInput = this.createPlayerNameInput(i);
+            playersList.appendChild(formInput);
         }
-    },500);
-}
+    };
 
-// @todo Split this function into separate functions that handles scores, highlights sub-zero scores, and advances turns
-function scoreUpdater() {
-    jQuery('#submit-update').click(function() {
-        var scoreUpdate = jQuery('#score-update'),
-            current = jQuery('.current'),
-            currentScore = current.find('.score'),
-            next = current.next('.player'),
-            newPoints = parseInt(scoreUpdate.val()),
-            currentPoints = parseInt(currentScore.val()),
-            newSum = newPoints + currentPoints;
+    /**
+     * Create input field for each player's name
+     */
+    Scorekeeper.prototype.createPlayerNameInput = function(i) {
+        var li = document.createElement('li'),
+            label = document.createElement('label'),
+            labelText,
+            input = document.createElement('input');
 
-        if (newSum < 0) {
-            currentScore.css('color','red');
-        } else {
-            currentScore.css('color','inherit');
+        label.setAttribute('for', 'player-' + i);
+        labelText = document.createTextNode('Player ' + i + ' Name: ');
+        label.appendChild(labelText);
+
+        input.setAttribute('type', 'text');
+        input.setAttribute('id', 'player-' + i);
+        input.setAttribute('name', 'player-name[]');
+        input.classList.add('player-name');
+
+        li.appendChild(label);
+        li.appendChild(input);
+
+        return li;
+    };
+
+    /**
+     * Set first player to active and initialize scoreUpdateListener if a list of players is present
+     */
+    Scorekeeper.prototype.initScoreUpdater = function() {
+        var playerList = document.getElementById('players'),
+            players;
+
+        if (!playerList) {
+            return;
         }
 
-        // Update current score and reset score updater field
-        currentScore.val(newSum);
-        scoreUpdate.val('0');
+        players = playerList.querySelectorAll('li');
 
-        // Advance to the next player
-        if (next.length == 0) {
-            next = jQuery('.player:first-child');
+        this.timeout = setTimeout(function() {
+            if (players.length > 0) {
+                players[0].classList.add('current');
+            }
+
+            if (document.getElementById('submit-update')) {
+                this.scoreUpdateListener();
+                clearTimeout(this.timeout);
+            }
+        }.bind(this), 500);
+    };
+
+    /**
+     * Listen for submission of score updates
+     */
+    Scorekeeper.prototype.scoreUpdateListener = function() {
+        var submit = document.getElementById('submit-update');
+
+        submit.addEventListener('click', this.updateScoreOnSubmit, false);
+    };
+
+    /**
+     * Update the point value for the current player, then advance to the next player
+     */
+    Scorekeeper.prototype.updateScoreOnSubmit = function() {
+        var scoreUpdate = document.getElementById('score-update'),
+            current = document.querySelector('.current'),
+            currentScore = current.querySelector('.score'),
+            next = current.nextElementSibling,
+            newSum = parseInt(scoreUpdate.value) + parseInt(currentScore.value);
+
+        // Update score for current player
+        currentScore.value = newSum;
+        currentScore.style.color = newSum < 0 ? 'red' : 'inherit';
+
+        // Reset score updater input for next update
+        scoreUpdate.value = '0';
+
+        // Set next to the first player if at the end of the list
+        if (!next) {
+            next = document.querySelectorAll('.player')[0];
         }
-        current.removeClass('current');
-        next.addClass('current');
-    });
-}
+
+        // Set next player to the active player
+        current.classList.remove('current');
+        next.classList.add('current');
+    };
+
+    /**
+     * Wrapper for initialization methods
+     */
+    Scorekeeper.prototype.run = function() {
+        this.makePageFullHeight();
+        this.addEventListeners();
+    };
+
+    // Initialize
+    app = new Scorekeeper;
+
+    app.run();
+}());
