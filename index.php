@@ -1,10 +1,10 @@
 <?php require('inc/session.php'); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title></title>
-    <link rel="stylesheet" href="css/main_app.css" type="text/css">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
 </head>
 
 <body>
@@ -25,6 +25,6 @@
 </div>
 
 <!-- JavaScript -->
-<script src="js/main_app.js"></script>
+<script src="assets/js/main_app.js"></script>
 </body>
 </html>

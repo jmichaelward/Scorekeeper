@@ -3,3 +3,9 @@
   -webkit-box-shadow: $shadow;
   box-shadow: $shadow;
 }
+
+@mixin bp($breakpoint) {
+  @media (min-width: $breakpoint) {
+    @content;
+  }
+}
