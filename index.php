@@ -25,6 +25,6 @@
 </div>
 
 <!-- JavaScript -->
-<script src="<?php echo 'http://' . $_SERVER['SERVER_NAME']; ?>/js/main_app.js"></script>
+<script src="js/main_app.js"></script>
 </body>
 </html>
