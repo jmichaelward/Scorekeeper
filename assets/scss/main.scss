@@ -6,35 +6,132 @@
 /*-------------||
 || Typography ||
 ||-------------*/
+* {
+  box-sizing: border-box;
+}
+
 body {
+  background-color: $color__bg;
   color: $color__text;
   font-family: $font__sans;
+  font-size: 100%;
 }
 
-h1 {
-  font-size: 2em;
+.page__hdr {
+  border-bottom: 1px solid $color--rule;
+  margin-bottom: 2rem;
+}
+.page__hd {
+  font-size: 2rem;
 }
 
-h2 {
+h2,
+.h2 {
   font-size: 1.5em;
   text-transform: uppercase;
 }
 
+.section__hdr {
+  margin-bottom: 0.5rem;
+}
+
+.section__hd {
+  line-height: 1.2
+}
+
 h1, h2 {
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-input[type=number],
-input[type=submit],
+p {
+  margin-bottom: 1rem;
+}
+
+form {
+  li {
+    list-style-type: none;
+    margin: 0.5em 0;
+  }
+}
+
+input[type="number"],
+input[type="text"] {
+  -webkit-appearance: none;
+  background-color: $color__bg;
+  border: 2px solid $color__gray--medium;
+  border-radius: 5px;
+  outline: none;
+  padding: 0.5rem;
+  transition: border-color 125ms ease-in;
+
+  &:active,
+  &:focus {
+    border-color: $color--accent;
+  }
+}
+
+#num-players {
+  margin-left: 1rem;
+  text-align: left;
+  width: 50px;
+}
+
+input[class="score"] {
+  background: none;
+  border: 0;
+  color: $color__text;
+}
+
+input.player-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  text-align: left;
+  width: 100%;
+
+  @include bp($screen--phone) {
+    max-width: 300px;
+    width: 50%;
+  }
+}
+
+input[type="number"],
+input[type="submit"],
 button {
-  font-size: inherit;
+  font-size: 1rem;
 }
 
 input[type=submit],
 button {
+  -webkit-appearance: none;
   text-transform: uppercase;
+
   &:hover {
     color: $color__bg;
+  }
+}
+
+.btn {
+  -webkit-appearance: none;
+  background-color: $color--button;
+  border: 1px solid darken($color--button, 20%);
+  border-radius: 5px;
+  box-shadow: $shadow--button;
+  cursor: pointer;
+  margin-top: 1em;
+  padding: 0.5rem 1rem;
+
+  &:focus,
+  &:hover {
+    background-color: $color--accent;
+    border: 1px solid darken($color--accent, 20%);
+    color: $color__text--light;
+    outline: none;
+    -moz-transition: background 0.3s, color 0.3s;
+    -webkit-transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, color 0.3s;
   }
 }
 
@@ -48,99 +145,87 @@ button {
   font-size: inherit;
 }
 
-/*--------||
-|| Layout ||
-||--------*/
-body {
-  background: $color__bg;
-  width: 100%;
-}
-
-h1, h2 {
-  margin-bottom: 1em;
-}
-
-p {
-  margin-bottom: 1em;
-}
-
-form li {
-  list-style-type: none;
-  margin: 0.5em 0;
-}
-
-input[type=number],
-input[type=text] {
-  border: 1px solid $color__text;
-  border-radius: 5px;
-  padding: 3px;
-  text-align: center;
-}
-
-input[type=number] {
-  max-width: 50px;
-}
-
-input[class=score] {
-  -webkit-appearance: none;
-  background: none;
-  border: 0;
-}
-
-input[class=player-name] {
-  text-align: left;
-}
-
-input[type=submit],
-button {
-  -webkit-appearance: none;
-  background: $color--button;
-  border: 1px solid $color__text;
-  border-radius: 5px;
-  @include box-shadow($shadow--button);
-  cursor: pointer;
-  margin-top: 1em;
-  padding: 5px 10px;
-
-  &:hover {
-    background: $color--accent;
-    -moz-transition: background 0.3s, color 0.3s;
-    -webkit-transition: background 0.3s, color 0.3s;
-    transition: background 0.3s, color 0.3s;
-  }
-}
-
 .current {
-  background: $color--highlight;
+  background-color: $color--highlight;
   display: block;
+  transition: background-color 300ms ease-in;
   width: 100%;
 }
 
-.player {
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin-bottom: 1em;
-  padding: 0.5em;
+#player-list-form {}
 
-  p {
-    margin-bottom: 0;
-  }
+#players-list {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.players-list__player {}
+
+.players-list__player + .players-list__player {
+  margin-top: 2rem;
 }
 
 #page {
-  background: $color__page;
-  box-sizing: border-box;
+  background-color: $color__page;
   display: block;
-  margin: 0 auto;
-  max-width: $width-max-outer;
-  padding: 1em;
-  width: auto;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 2rem;
+
+  @include bp($screen--phone) {
+    margin: 0 auto;
+    max-width: $width-max-outer;
+    width: 90%;
+  }
 }
 
 #players {
-  display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+  align-items: flex-start;
+  background-color: $color__page;
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
   margin-bottom: 2em;
-  width: auto;
+  user-select: none;
+  width: 100%;
+
+  * {
+    user-select: none;
+  }
 }
+
+.player {
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: $color__text;
+  padding: 1rem 1.5rem;
+  -webkit-transition: background-color 175ms ease-in;
+  transition: background-color 175ms ease-in;
+  width: 50%;
+
+  @include bp($screen--phone-lg) {
+    width: 33%;
+  }
+
+  &:not(.current):hover {
+    cursor: pointer;
+    background-color: $color__bg;
+  }
+}
+
+.player-name {
+  margin-bottom: 0.5rem;
+}
+
+.score-updater {
+  margin-bottom: 2rem;
+}
+
+.score-update__label {
+  display: block;
+}
+
+.score-update__input {}
+.score-update__btn {}

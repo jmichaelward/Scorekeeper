@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         },
         autoprefixer: {
             options: {
-                browsers: ['last 2 versions']
+                browsers: ['last 2 versions', 'ie 8', 'ie 9', 'android 2.3', 'android 4', 'opera 12']
             },
             dev: {
                 options: {
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                 files: [
                     'assets/scss/**/*.scss',
                     'assets/css/main.css',
-                    'assets/js/*.js',
+                    //'assets/js/*.js',
                     '**/*.php'
                 ]
             }

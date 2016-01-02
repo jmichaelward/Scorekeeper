@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title></title>
+    <title>Scorekeeper by J. Michael Ward</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
 </head>
 
 <body>
 <div id="page">
-    <header>
-        <h1>Scorekeeper</h1>
+    <header class="page__hdr">
+        <h1 class="page__hd">Scorekeeper</h1>
     </header>
 
     <div id="main">
@@ -25,6 +26,6 @@
 </div>
 
 <!-- JavaScript -->
-<script src="assets/js/main_app.js"></script>
+<script src="assets/js/main_app.min.js"></script>
 </body>
 </html>

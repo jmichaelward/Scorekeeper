@@ -3,19 +3,26 @@ $width-max-outer: 1200px;
 $width-max-inner: 960px;
 
 // Colors
-$color__bg: rgb(245,245,245);
-$color__page: rgb(255,255,255);
+$color__bg: rgb(245, 245, 245);
+$color__page: rgb(255, 255, 255);
 
-$color--accent: rgb(255,113,75);
-$color--highlight: rgb(245,223,75);
-$color--shadow: rgb(200,200,200);
-$color--button: rgba(200,220,235,0.8);
+$color--accent: rgb(255, 113, 75);
+$color--highlight: rgb(245, 223, 75);
+$color--shadow: rgb(230, 230, 230);
+$color--button: rgba(200, 220, 235, 0.8);
+$color--rule: rgb(235, 235, 235);
+$color__gray--medium: rgb(170, 170, 170);
 
 // Text Colors
-$color__text: rgb(30,30,30);
+$color__text: rgb(30, 30, 30);
+$color__text--light: rgb(245, 245, 245);
 
 // Fonts
 $font__sans: 'Open Sans', sans-serif;
 
 // Shadows
-$shadow--button: 3px 3px 3px $color--shadow;
+$shadow--button: 3px 3px 0 $color--shadow;
+
+// Breakpoints
+$screen--phone: 450px;
+$screen--phone-lg: 640px;

@@ -49,31 +49,114 @@ table {
 /*-------------||
 || Typography ||
 ||-------------*/
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
 body {
+  background-color: whitesmoke;
   color: #1e1e1e;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Open Sans", sans-serif;
+  font-size: 100%; }
 
-h1 {
-  font-size: 2em; }
+.page__hdr {
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 2rem; }
 
-h2 {
+.page__hd {
+  font-size: 2rem; }
+
+h2,
+.h2 {
   font-size: 1.5em;
   text-transform: uppercase; }
 
+.section__hdr {
+  margin-bottom: 0.5rem; }
+
+.section__hd {
+  line-height: 1.2; }
+
 h1, h2 {
-  font-weight: bold; }
+  font-weight: bold;
+  margin-bottom: 1rem; }
 
-input[type=number],
+p {
+  margin-bottom: 1rem; }
+
+form li {
+  list-style-type: none;
+  margin: 0.5em 0; }
+
+input[type="number"],
+input[type="text"] {
+  -webkit-appearance: none;
+  background-color: whitesmoke;
+  border: 2px solid #aaaaaa;
+  border-radius: 5px;
+  outline: none;
+  padding: 0.5rem;
+  -webkit-transition: border-color 125ms ease-in;
+       -o-transition: border-color 125ms ease-in;
+          transition: border-color 125ms ease-in; }
+  input[type="number"]:active, input[type="number"]:focus,
+  input[type="text"]:active,
+  input[type="text"]:focus {
+    border-color: #ff714b; }
+
+#num-players {
+  margin-left: 1rem;
+  text-align: left;
+  width: 50px; }
+
+input[class="score"] {
+  background: none;
+  border: 0;
+  color: #1e1e1e; }
+
+input.player-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+  text-align: left;
+  width: 100%; }
+  @media (min-width: 450px) {
+    input.player-name {
+      max-width: 300px;
+      width: 50%; } }
+
+input[type="number"],
+input[type="submit"],
+button {
+  font-size: 1rem; }
+
 input[type=submit],
 button {
-  font-size: inherit; }
-
-input[type=submit],
-button {
+  -webkit-appearance: none;
   text-transform: uppercase; }
   input[type=submit]:hover,
   button:hover {
     color: whitesmoke; }
+
+.btn {
+  -webkit-appearance: none;
+  background-color: rgba(200, 220, 235, 0.8);
+  border: 1px solid rgba(125, 172, 208, 0.8);
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 3px 0 #e6e6e6;
+          box-shadow: 3px 3px 0 #e6e6e6;
+  cursor: pointer;
+  margin-top: 1em;
+  padding: 0.5rem 1rem; }
+  .btn:focus, .btn:hover {
+    background-color: #ff714b;
+    border: 1px solid #e43000;
+    color: whitesmoke;
+    outline: none;
+    -webkit-transition: background 0.3s, color 0.3s;
+    -o-transition: background 0.3s, color 0.3s;
+       transition: background 0.3s, color 0.3s; }
 
 .player-name,
 .score {
@@ -83,81 +166,88 @@ button {
   color: inherit;
   font-size: inherit; }
 
-/*--------||
-|| Layout ||
-||--------*/
-body {
-  background: whitesmoke;
-  width: 100%; }
-
-h1, h2 {
-  margin-bottom: 1em; }
-
-p {
-  margin-bottom: 1em; }
-
-form li {
-  list-style-type: none;
-  margin: 0.5em 0; }
-
-input[type=number],
-input[type=text] {
-  border: 1px solid #1e1e1e;
-  border-radius: 5px;
-  padding: 3px;
-  text-align: center; }
-
-input[type=number] {
-  max-width: 50px; }
-
-input[class=score] {
-  -webkit-appearance: none;
-  background: none;
-  border: 0; }
-
-input[class=player-name] {
-  text-align: left; }
-
-input[type=submit],
-button {
-  -webkit-appearance: none;
-  background: rgba(200, 220, 235, 0.8);
-  border: 1px solid #1e1e1e;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px #c8c8c8;
-  cursor: pointer;
-  margin-top: 1em;
-  padding: 5px 10px; }
-  input[type=submit]:hover,
-  button:hover {
-    background: #ff714b;
-    transition: background 0.3s, color 0.3s; }
-
 .current {
-  background: #f5df4b;
+  background-color: #f5df4b;
   display: block;
+  -webkit-transition: background-color 300ms ease-in;
+       -o-transition: background-color 300ms ease-in;
+          transition: background-color 300ms ease-in;
   width: 100%; }
+
+#players-list {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 1rem; }
+
+.players-list__player + .players-list__player {
+  margin-top: 2rem; }
+
+#page {
+  background-color: white;
+  display: block;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 2rem; }
+  @media (min-width: 450px) {
+    #page {
+      margin: 0 auto;
+      max-width: 1200px;
+      width: 90%; } }
+
+#players {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  background-color: white;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  margin-bottom: 2em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%; }
+  #players * {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none; }
 
 .player {
   border-radius: 5px;
-  box-sizing: border-box;
-  margin-bottom: 1em;
-  padding: 0.5em; }
-  .player p {
-    margin-bottom: 0; }
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #1e1e1e;
+  padding: 1rem 1.5rem;
+  -webkit-transition: background-color 175ms ease-in;
+  -o-transition: background-color 175ms ease-in;
+     transition: background-color 175ms ease-in;
+  width: 50%; }
+  @media (min-width: 640px) {
+    .player {
+      width: 33%; } }
+  .player:not(.current):hover {
+    cursor: pointer;
+    background-color: whitesmoke; }
 
-#page {
-  background: white;
-  box-sizing: border-box;
-  display: block;
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 1em;
-  width: auto; }
+.player-name {
+  margin-bottom: 0.5rem; }
 
-#players {
-  display: inline-block;
-  margin-bottom: 2em;
-  width: auto; }
+.score-updater {
+  margin-bottom: 2rem; }
+
+.score-update__label {
+  display: block; }
 
 /*# sourceMappingURL=main.css.map */
