@@ -256,13 +256,18 @@
 	//
 	// export default Scorekeeper;
 	
-	function formatName(user) {
-		return user.firstName + ' ' + user.lastName;
+	function formatName(_ref) {
+		var firstName = _ref.firstName,
+		    lastName = _ref.lastName;
+	
+		return firstName + ' ' + lastName;
 	}
 	
+	var players = {};
+	
 	var user = {
-		firstName: 'Harper',
-		lastName: 'Perez'
+		firstName: 'Jeremy',
+		lastName: 'Ward'
 	};
 	
 	var element = _react2.default.createElement(
@@ -274,6 +279,30 @@
 	);
 	
 	_reactDom2.default.render(element, document.getElementById('main'));
+	
+	/*
+	Needs:
+
+	Game Setup View:
+	- Check for saved game in localStorage. Prompt user to continue game if saved game exists.
+	- A form with a single text input for player name, and two buttons: 'Add Player', 'Start Game'
+	- Clicking 'Add Player' appends a text input to the list
+	- Clicking 'Start Game' initializes the game interface
+	- Select from list of games or type in a custom one
+
+	Game View:
+	- List of players with their current score
+	- Form input that displays the active player, and includes entry to modify their score
+	- A button to end the game, with confirmation
+	- A button to save the game status to localStorage (game should be saved each time a player's score is changed)
+
+	Game History View?
+	- Date game was played
+	- Scores
+	- Name of game played (which should pre-populate suggested games list on setup)
+
+
+	 */
 
 /***/ }),
 /* 3 */
