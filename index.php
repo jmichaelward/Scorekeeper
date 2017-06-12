@@ -4,8 +4,8 @@
 <head>
     <title>Scorekeeper by J. Michael Ward</title>
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="stylesheet" href="assets/dist/css/main.css" type="text/css">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/src/img/apple-touch-icon.png">
 </head>
 
 <body>
@@ -26,6 +26,6 @@
 </div>
 
 <!-- JavaScript -->
-<script src="assets/js/main_app.min.js"></script>
+<script src="assets/dist/js/scripts.js"></script>
 </body>
 </html>

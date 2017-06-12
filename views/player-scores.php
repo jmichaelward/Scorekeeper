@@ -1,4 +1,4 @@
-<section class="score-updater">
+<form class="score-updater">
     <header class="section__hdr">
         <h2 class="h2 section__hd">Update Player Score</h2>
     </header>
@@ -6,7 +6,7 @@
     <label for="score-update" class="score-update__label">Add to total</label>
     <input type="number" name="score-update" id="score-update" class="score-update__input" placeholder="0" value="">
     <button id="submit-update" class="btn score-update__btn">Submit</button>
-</section>
+</form>
 
 <section class="player-scores">
     <header class="section__hdr">
